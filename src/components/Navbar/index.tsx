@@ -118,15 +118,20 @@ const Navbar: React.FC<NavbarProps> = ({
     />,
     ...(showDiscord
       ? [
-          <Icon
+          <IconButton
             key="discord"
+            aria-label="Open Discord invite"
             onClick={() =>
-              window.open('https://discord.gg/SDbbn3hT4b', '_blank')
+              window.open(
+                'https://discord.gg/SDbbn3hT4b',
+                '_blank',
+                'noopener,noreferrer'
+              )
             }
-            style={{ cursor: 'pointer' }}
-            fontSize={30}
-            icon={'ic:baseline-discord'}
-          />
+            sx={{ p: 0 }}
+          >
+            <Icon fontSize={30} icon={'ic:baseline-discord'} />
+          </IconButton>
         ]
       : []),
     ...(showGithubStar
