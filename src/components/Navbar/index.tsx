@@ -97,6 +97,10 @@ const Navbar: React.FC<NavbarProps> = ({
     </FormControl>
   );
 
+  const showDiscord = import.meta.env.VITE_SHOW_DISCORD !== 'false';
+  const showGithubStar = import.meta.env.VITE_SHOW_GITHUB_STAR !== 'false';
+  const showHireMe = import.meta.env.VITE_SHOW_HIRE_ME !== 'false';
+
   const buttons: ReactNode[] = [
     languageSelector,
     <Icon
@@ -112,39 +116,63 @@ const Navbar: React.FC<NavbarProps> = ({
             : 'ic:round-contrast'
       }
     />,
-    <Icon
-      onClick={() => window.open('https://discord.gg/SDbbn3hT4b', '_blank')}
-      style={{ cursor: 'pointer' }}
-      fontSize={30}
-      icon={'ic:baseline-discord'}
-    />,
-    <iframe
-      src="https://ghbtns.com/github-btn.html?user=iib0011&repo=omni-tools&type=star&count=true&size=large"
-      frameBorder="0"
-      scrolling="0"
-      width="150"
-      height="30"
-      title="GitHub"
-    ></iframe>,
-    <Button
-      onClick={() => {
-        window.open(
-          'https://drive.google.com/file/d/1-r9-rDYnDJic9dnDywKTAsueehIAVp5F/view?usp=sharing',
-          '_blank'
-        );
-      }}
-      sx={{ borderRadius: '100px' }}
-      variant={'contained'}
-      startIcon={
-        <Icon
-          style={{ cursor: 'pointer' }}
-          fontSize={25}
-          icon={'hugeicons:job-search'}
-        />
-      }
-    >
-      {t('navbar.hireMe')}
-    </Button>
+    ...(showDiscord
+      ? [
+          <IconButton
+            key="discord"
+            aria-label="Open Discord invite"
+            onClick={() =>
+              window.open(
+                'https://discord.gg/SDbbn3hT4b',
+                '_blank',
+                'noopener,noreferrer'
+              )
+            }
+            sx={{ p: 0 }}
+          >
+            <Icon fontSize={30} icon={'ic:baseline-discord'} />
+          </IconButton>
+        ]
+      : []),
+    ...(showGithubStar
+      ? [
+          <iframe
+            key="github-star"
+            src="https://ghbtns.com/github-btn.html?user=iib0011&repo=omni-tools&type=star&count=true&size=large"
+            frameBorder="0"
+            scrolling="0"
+            width="150"
+            height="30"
+            loading="lazy"
+            referrerPolicy="no-referrer"
+            title="GitHub star button"
+          ></iframe>
+        ]
+      : []),
+    ...(showHireMe
+      ? [
+          <Button
+            key="hire-me"
+            onClick={() => {
+              window.open(
+                'https://drive.google.com/file/d/1-r9-rDYnDJic9dnDywKTAsueehIAVp5F/view?usp=sharing',
+                '_blank'
+              );
+            }}
+            sx={{ borderRadius: '100px' }}
+            variant={'contained'}
+            startIcon={
+              <Icon
+                style={{ cursor: 'pointer' }}
+                fontSize={25}
+                icon={'hugeicons:job-search'}
+              />
+            }
+          >
+            {t('navbar.hireMe')}
+          </Button>
+        ]
+      : [])
   ];
   const drawerList = (
     <List>
