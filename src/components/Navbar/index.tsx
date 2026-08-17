@@ -97,9 +97,10 @@ const Navbar: React.FC<NavbarProps> = ({
     </FormControl>
   );
 
-  const showDiscord = import.meta.env.VITE_SHOW_DISCORD !== 'false';
-  const showGithubStar = import.meta.env.VITE_SHOW_GITHUB_STAR !== 'false';
-  const showHireMe = import.meta.env.VITE_SHOW_HIRE_ME !== 'false';
+  const runtimeEnv = window.__env__ ?? {};
+  const showDiscord = (runtimeEnv.VITE_SHOW_DISCORD ?? import.meta.env.VITE_SHOW_DISCORD) !== 'false';
+  const showGithubStar = (runtimeEnv.VITE_SHOW_GITHUB_STAR ?? import.meta.env.VITE_SHOW_GITHUB_STAR) !== 'false';
+  const showHireMe = (runtimeEnv.VITE_SHOW_HIRE_ME ?? import.meta.env.VITE_SHOW_HIRE_ME) !== 'false';
 
   const buttons: ReactNode[] = [
     languageSelector,
