@@ -138,7 +138,9 @@ const Navbar: React.FC<NavbarProps> = ({
             scrolling="0"
             width="150"
             height="30"
-            title="GitHub"
+            loading="lazy"
+            referrerPolicy="no-referrer"
+            title="GitHub star button"
           ></iframe>
         ]
       : []),
