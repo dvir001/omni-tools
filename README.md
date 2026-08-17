@@ -98,6 +98,24 @@ docker run -d --name omni-tools --restart unless-stopped -p 8080:80 ghcr.io/dvir
 
 The image is also available on Docker Hub as `dvir001/omni-tools`.
 
+#### Build-time configuration
+
+The navbar visibility flags are baked into the bundle at build time. To hide the Discord, GitHub Star, or Hire Me buttons, pass them as build arguments when building your own image:
+
+```bash
+docker build \
+  --build-arg VITE_SHOW_DISCORD=false \
+  --build-arg VITE_SHOW_GITHUB_STAR=false \
+  --build-arg VITE_SHOW_HIRE_ME=false \
+  -t omni-tools .
+```
+
+| Build arg | Default | Description |
+|---|---|---|
+| `VITE_SHOW_DISCORD` | `true` | Show the Discord icon in the navbar |
+| `VITE_SHOW_GITHUB_STAR` | `true` | Show the GitHub Star button in the navbar |
+| `VITE_SHOW_HIRE_ME` | `true` | Show the Hire Me button in the navbar |
+
 ### Docker Compose
 
 ```yaml
@@ -109,6 +127,23 @@ services:
     ports:
       - "8080:80"
 
+```
+
+To build locally with Compose and hide the navbar buttons, use `build` instead of `image`:
+
+```yaml
+services:
+  omni-tools:
+    build:
+      context: .
+      args:
+        VITE_SHOW_DISCORD: "false"
+        VITE_SHOW_GITHUB_STAR: "false"
+        VITE_SHOW_HIRE_ME: "false"
+    container_name: omni-tools
+    restart: unless-stopped
+    ports:
+      - "8080:80"
 ```
 
 ## Contribute
