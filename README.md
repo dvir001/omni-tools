@@ -136,7 +136,7 @@ docker build \
   -t omni-tools .
 ```
 
-> **Note:** Runtime environment variables (via `-e` or `--env-file`) always take precedence over build-time defaults.
+> **Note:** Runtime environment variables (via `-e` or `--env-file`) override build-time defaults only when valid values are provided (`true` or `false`).
 
 ### Docker Compose
 
@@ -153,6 +153,19 @@ services:
       VITE_SHOW_GITHUB_STAR: "false"
       VITE_SHOW_HIRE_ME: "false"
 
+```
+
+If you build locally with Docker Compose, you can set build-time defaults with `build.args`:
+
+```yaml
+services:
+  omni-tools:
+    build:
+      context: .
+      args:
+        VITE_SHOW_DISCORD: "false"
+        VITE_SHOW_GITHUB_STAR: "false"
+        VITE_SHOW_HIRE_ME: "false"
 ```
 
 ## Contribute
