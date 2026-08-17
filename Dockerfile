@@ -11,7 +11,7 @@ ENV VITE_SHOW_GITHUB_STAR=$VITE_SHOW_GITHUB_STAR
 ENV VITE_SHOW_HIRE_ME=$VITE_SHOW_HIRE_ME
 
 COPY package.json package-lock.json ./
-RUN npm install
+RUN npm ci --ignore-scripts
 
 COPY . .
 RUN npm run build
