@@ -6,8 +6,8 @@
 <a href="https://github.com/iib0011/omni-tools/releases">
           <img src="https://img.shields.io/badge/version-0.6.0-blue?style=for-the-badge" />
         </a>
-        <a href="https://hub.docker.com/r/iib0011/omni-tools">
-          <img src="https://img.shields.io/docker/pulls/iib0011/omni-tools?style=for-the-badge&logo=docker" />
+        <a href="https://github.com/dvir001/omni-tools/pkgs/container/omni-tools">
+          <img src="https://img.shields.io/badge/docker-ghcr.io%2Fdvir001%2Fomni--tools-blue?style=for-the-badge&logo=docker" />
         </a>
         <a href="https://github.com/iib0011">
           <img src="https://img.shields.io/github/stars/iib0011/omni-tools?style=for-the-badge&logo=github" />
@@ -93,15 +93,17 @@ Stay tuned as we continue to expand and improve our collection!
 ### Docker
 
 ```bash
-docker run -d --name omni-tools --restart unless-stopped -p 8080:80 iib0011/omni-tools:latest
+docker run -d --name omni-tools --restart unless-stopped -p 8080:80 ghcr.io/dvir001/omni-tools:latest
 ```
+
+The image is also available on Docker Hub as `dvir001/omni-tools`.
 
 ### Docker Compose
 
 ```yaml
 services:
   omni-tools:
-    image: iib0011/omni-tools:latest
+    image: ghcr.io/dvir001/omni-tools:latest
     container_name: omni-tools
     restart: unless-stopped
     ports:
