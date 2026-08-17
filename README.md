@@ -98,6 +98,46 @@ docker run -d --name omni-tools --restart unless-stopped -p 8080:80 ghcr.io/dvir
 
 The image is also available on Docker Hub as `dvir001/omni-tools`.
 
+#### Runtime configuration
+
+The navbar visibility flags can be set at **runtime** by passing environment variables to the container — no custom build required:
+
+```bash
+docker run -d --name omni-tools --restart unless-stopped -p 8080:80 \
+  -e VITE_SHOW_DISCORD=false \
+  -e VITE_SHOW_GITHUB_STAR=false \
+  -e VITE_SHOW_HIRE_ME=false \
+  ghcr.io/dvir001/omni-tools:latest
+```
+
+Or use an env file:
+
+```bash
+docker run -d --name omni-tools --restart unless-stopped -p 8080:80 \
+  --env-file .env \
+  ghcr.io/dvir001/omni-tools:latest
+```
+
+| Variable | Default | Description |
+|---|---|---|
+| `VITE_SHOW_DISCORD` | `true` | Show the Discord icon in the navbar |
+| `VITE_SHOW_GITHUB_STAR` | `true` | Show the GitHub Star button in the navbar |
+| `VITE_SHOW_HIRE_ME` | `true` | Show the Hire Me button in the navbar |
+
+#### Build-time configuration
+
+Alternatively, if you build your own image, you can bake the values in at build time using build arguments:
+
+```bash
+docker build \
+  --build-arg VITE_SHOW_DISCORD=false \
+  --build-arg VITE_SHOW_GITHUB_STAR=false \
+  --build-arg VITE_SHOW_HIRE_ME=false \
+  -t omni-tools .
+```
+
+> **Note:** Runtime environment variables (via `-e` or `--env-file`) override build-time defaults only when valid values are provided (`true` or `false`).
+
 ### Docker Compose
 
 ```yaml
@@ -108,7 +148,24 @@ services:
     restart: unless-stopped
     ports:
       - "8080:80"
+    environment:
+      VITE_SHOW_DISCORD: "false"
+      VITE_SHOW_GITHUB_STAR: "false"
+      VITE_SHOW_HIRE_ME: "false"
 
+```
+
+If you build locally with Docker Compose, you can set build-time defaults with `build.args`:
+
+```yaml
+services:
+  omni-tools:
+    build:
+      context: .
+      args:
+        VITE_SHOW_DISCORD: "false"
+        VITE_SHOW_GITHUB_STAR: "false"
+        VITE_SHOW_HIRE_ME: "false"
 ```
 
 ## Contribute
